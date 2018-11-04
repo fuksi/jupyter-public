@@ -1,0 +1,787 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{ Bayesian Data Analysis - Assignment 7}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{linear-model-with-drowning-data}{%
+\section{Linear model with drowning
+data}\label{linear-model-with-drowning-data}}
+
+All source code for section 1 is at the end of the section. If this
+section is to be executed, the source code need to be ran first for the
+functions in the section to be referenced
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \textbf{i)} Trending in the number of people drown per year.
+
+There is a \textbf{decreasing trend} in the number of people drown per
+year from 1980 to 2016. The trend can be seen in the plot below
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{plot\PYZus{}trend}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_2_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Below is \textbf{the histogram of the slope} of the linear model
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{plot\PYZus{}beta\PYZus{}hist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_4_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{ii)} The \textbf{histogram of the posterior predictive
+distribution} for number of people drown in year 2019.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{plot\PYZus{}ypred\PYZus{}hist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_6_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{Addition answers}
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The fixes includes:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    addding lower bound to sigma
+  \item
+    using xpred for ypred calculation instead of mu\\
+  \end{itemize}
+\item
+  Using Z probability table, the z value for the given confidence level
+  is 2.58 . Then the suitable approximate numerical value for τ:
+  \textbf{26.7}\\
+\item
+  Source code to implement the prior: \textbf{see stan model
+  (model\_with\_prior) belows}
+\end{enumerate}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{model\PYZus{}with\PYZus{}prior}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+s2}{data }\PY{l+s+s2}{\PYZob{}}
+        \PY{l+s+s2}{    int\PYZlt{}lower=0\PYZgt{} N; // number of data points}
+        \PY{l+s+s2}{    vector[N] x; // observation year}
+        \PY{l+s+s2}{    vector[N] y; // observation number of drowned}
+        \PY{l+s+s2}{    real xpred; // prediction year}
+        \PY{l+s+s2}{    real pmubeta; // prior mean for beta}
+        \PY{l+s+s2}{    real ptaubeta; // prior std for beta}
+        \PY{l+s+s2}{\PYZcb{}}
+        \PY{l+s+s2}{parameters }\PY{l+s+s2}{\PYZob{}}
+        \PY{l+s+s2}{    real alpha;}
+        \PY{l+s+s2}{    real beta;}
+        \PY{l+s+s2}{    real\PYZlt{}lower=0\PYZgt{} sigma;}
+        \PY{l+s+s2}{\PYZcb{}}
+        \PY{l+s+s2}{transformed parameters }\PY{l+s+s2}{\PYZob{}}
+        \PY{l+s+s2}{    vector[N] mu;}
+        \PY{l+s+s2}{    mu = alpha + beta*x;}
+        \PY{l+s+s2}{\PYZcb{}}
+        \PY{l+s+s2}{model }\PY{l+s+s2}{\PYZob{}}
+        \PY{l+s+s2}{    beta \PYZti{} normal(pmubeta, ptaubeta);}
+        \PY{l+s+s2}{    y \PYZti{} normal(mu, sigma);}
+        \PY{l+s+s2}{\PYZcb{}}
+        \PY{l+s+s2}{generated quantities }\PY{l+s+s2}{\PYZob{}}
+        \PY{l+s+s2}{    real ypred;}
+        \PY{l+s+s2}{    ypred = normal\PYZus{}rng(alpha + beta*xpred, sigma);}
+        \PY{l+s+s2}{\PYZcb{}}
+        \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\end{Verbatim}
+
+
+    \hypertarget{source-code-for-part-1}{%
+\paragraph{Source code for part 1}\label{source-code-for-part-1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}\PYZpc{}capture}
+        \PY{k+kn}{import} \PY{n+nn}{pystan}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pickle}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{c+c1}{\PYZsh{} Data}
+        \PY{n}{raw\PYZus{}data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{loadtxt}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{drowning.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{year} \PY{o}{=} \PY{n}{raw\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{drown\PYZus{}count} \PY{o}{=} \PY{n}{raw\PYZus{}data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{} Model}
+        \PY{n}{stan\PYZus{}model}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+s2}{data }\PY{l+s+s2}{\PYZob{}}
+        \PY{l+s+s2}{    int\PYZlt{}lower=0\PYZgt{} N; // number of data points}
+        \PY{l+s+s2}{    vector[N] x; // observation year}
+        \PY{l+s+s2}{    vector[N] y; // observation number of drowned}
+        \PY{l+s+s2}{    real xpred; // prediction year}
+        \PY{l+s+s2}{\PYZcb{}}
+        \PY{l+s+s2}{parameters }\PY{l+s+s2}{\PYZob{}}
+        \PY{l+s+s2}{    real alpha;}
+        \PY{l+s+s2}{    real beta;}
+        \PY{l+s+s2}{    real\PYZlt{}lower=0\PYZgt{} sigma;}
+        \PY{l+s+s2}{\PYZcb{}}
+        \PY{l+s+s2}{transformed parameters }\PY{l+s+s2}{\PYZob{}}
+        \PY{l+s+s2}{    vector[N] mu;}
+        \PY{l+s+s2}{    mu = alpha + beta*x;}
+        \PY{l+s+s2}{\PYZcb{}}
+        \PY{l+s+s2}{model }\PY{l+s+s2}{\PYZob{}}
+        \PY{l+s+s2}{    y \PYZti{} normal(mu, sigma);}
+        \PY{l+s+s2}{\PYZcb{}}
+        \PY{l+s+s2}{generated quantities }\PY{l+s+s2}{\PYZob{}}
+        \PY{l+s+s2}{    real ypred;}
+        \PY{l+s+s2}{    ypred = normal\PYZus{}rng(alpha + beta*xpred, sigma);}
+        \PY{l+s+s2}{\PYZcb{}}
+        \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+        \PY{c+c1}{\PYZsh{} Fit model}
+        \PY{n}{data} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{N}\PY{o}{=}\PY{l+m+mi}{37}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{n}{year}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{drown\PYZus{}count}\PY{p}{,} \PY{n}{xpred}\PY{o}{=}\PY{l+m+mi}{2019}\PY{p}{)}        
+        \PY{n}{sm} \PY{o}{=} \PY{n}{pystan}\PY{o}{.}\PY{n}{StanModel}\PY{p}{(}\PY{n}{model\PYZus{}code}\PY{o}{=}\PY{n}{stan\PYZus{}model}\PY{p}{)}
+        \PY{n}{fit} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{sampling}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{,} \PY{n+nb}{iter}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{chains}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+        \PY{n}{samples} \PY{o}{=} \PY{n}{fit}\PY{o}{.}\PY{n}{extract}\PY{p}{(}\PY{n}{permuted}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Prepare functions for report}
+        \PY{k}{def} \PY{n+nf}{plot\PYZus{}trend}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{year}\PY{p}{,} \PY{n}{drown\PYZus{}count}\PY{p}{)}
+            \PY{n}{year\PYZus{}x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1980}\PY{p}{,} \PY{l+m+mi}{2017}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+            \PY{n}{beta\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{samples}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{n}{alpha\PYZus{}mean} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{samples}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alpha}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{n}{drown\PYZus{}count\PYZus{}y} \PY{o}{=} \PY{p}{[}\PY{n}{alpha\PYZus{}mean} \PY{o}{+} \PY{n}{x} \PY{o}{*} \PY{n}{beta\PYZus{}mean} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{year\PYZus{}x}\PY{p}{]}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{year\PYZus{}x}\PY{p}{,} \PY{n}{drown\PYZus{}count\PYZus{}y}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of drown trend}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+        
+        
+        \PY{k}{def} \PY{n+nf}{plot\PYZus{}beta\PYZus{}hist}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{samples}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{beta}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+            
+        \PY{k}{def} \PY{n+nf}{plot\PYZus{}ypred\PYZus{}hist}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{samples}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ypred}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{posterior predictive histogram for year 2019}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{hierarchical-model-factory-data-with-stan}{%
+\section{Hierarchical model: factory data with
+Stan}\label{hierarchical-model-factory-data-with-stan}}
+
+    Some bootstraping code
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{k+kn}{import} \PY{n+nn}{pystan}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pickle}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        
+        \PY{n}{raw\PYZus{}data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{loadtxt}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{factory.txt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{tile}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{,} \PY{n}{raw\PYZus{}data}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{n}{y} \PY{o}{=} \PY{n}{raw\PYZus{}data}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\textbf{Separate model}
+
+    The answers are after the source code
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{o}{\PYZpc{}\PYZpc{}capture}
+        \PY{n}{model}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+s2}{data }\PY{l+s+s2}{\PYZob{}}
+        \PY{l+s+s2}{  int\PYZlt{}lower=0\PYZgt{} N; // number of data points}
+        \PY{l+s+s2}{  int\PYZlt{}lower=0\PYZgt{} K; // number of groups}
+        \PY{l+s+s2}{  int\PYZlt{}lower=1,upper=K\PYZgt{} x[N]; // group indicator}
+        \PY{l+s+s2}{  vector[N] y; //}
+        \PY{l+s+s2}{\PYZcb{}}
+        \PY{l+s+s2}{parameters }\PY{l+s+s2}{\PYZob{}}
+        \PY{l+s+s2}{  vector[K] mu;        // group means}
+        \PY{l+s+s2}{  vector\PYZlt{}lower=0\PYZgt{}[K] sigma; // group std}
+        \PY{l+s+s2}{\PYZcb{}}
+        \PY{l+s+s2}{model }\PY{l+s+s2}{\PYZob{}}
+        \PY{l+s+s2}{  y \PYZti{} normal(mu[x], sigma[x]);}
+        \PY{l+s+s2}{\PYZcb{}}
+        \PY{l+s+s2}{generated quantities }\PY{l+s+s2}{\PYZob{}}
+        \PY{l+s+s2}{    real ypred\PYZus{}6; // predictive distribution for the 6th machine}
+        \PY{l+s+s2}{    ypred\PYZus{}6 = normal\PYZus{}rng(mu[6], sigma[6]);}
+        \PY{l+s+s2}{\PYZcb{}}
+        \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+        \PY{n}{data} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{N}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{)}
+        \PY{n}{sm} \PY{o}{=} \PY{n}{pystan}\PY{o}{.}\PY{n}{StanModel}\PY{p}{(}\PY{n}{model\PYZus{}code}\PY{o}{=}\PY{n}{model}\PY{p}{)}
+        \PY{n}{fit} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{sampling}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{,} \PY{n+nb}{iter}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{chains}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+        \PY{n}{samples} \PY{o}{=} \PY{n}{fit}\PY{o}{.}\PY{n}{extract}\PY{p}{(}\PY{n}{permuted}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{k}{def} \PY{n+nf}{plot\PYZus{}i\PYZus{}ii}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{samples}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Posterior distribution of 6th machine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{samples}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ypred\PYZus{}6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predictive distribution of 6th machine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+            
+\end{Verbatim}
+
+
+    \hypertarget{stan-model-inference}{%
+\subparagraph{Stan model inference}\label{stan-model-inference}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{fit}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Inference for Stan model: anon\_model\_befaea1cc6bd57a6664f33c36bb75810.
+4 chains, each with iter=1000; warmup=500; thin=1; 
+post-warmup draws per chain=500, total post-warmup draws=2000.
+
+           mean se\_mean     sd   2.5\%    25\%    50\%    75\%  97.5\%  n\_eff   Rhat
+mu[1]     75.14    1.02  18.74  40.15  68.09   75.7  83.43 108.69    339   1.01
+mu[2]    106.51    0.36   9.44  87.17 101.71 106.25 111.06 124.65    674   1.01
+mu[3]      87.3     0.5  12.24  63.23  82.34  87.43  92.58 108.24    600    1.0
+mu[4]     112.0    0.28   6.67 100.08 108.86  111.7 114.76 126.88    574    1.0
+mu[5]     89.16    0.43  10.01  67.07   85.1  89.63  94.12 106.51    548    1.0
+mu[6]     87.32    0.62  16.58  56.84  78.91  86.42  95.13 123.99    725    1.0
+sigma[1]  32.22    1.44  26.54  12.36   19.2  25.55   36.2   97.7    339   1.01
+sigma[2]   18.5    0.43  11.26   7.67  11.67  15.32  21.25  50.07    677    1.0
+sigma[3]  21.54    0.85  18.79   8.32  12.54  16.79  24.15  62.18    487    1.0
+sigma[4]  12.26    0.41   9.01   4.87   7.44   9.92  13.86  33.54    493    1.0
+sigma[5]  18.06    0.65  13.91   6.88  10.76  14.53  20.79  49.26    452   1.01
+sigma[6]  31.29    0.91  22.21  12.66  19.21  25.21  36.07  87.61    597    1.0
+ypred\_6   88.33    1.07  41.83  12.81  68.15  87.33 106.42 170.56   1514    1.0
+lp\_\_     -81.71    0.19   3.51 -90.04 -83.76 -81.15 -79.16 -76.36    338   1.01
+
+Samples were drawn using NUTS at Mon Nov  5 01:28:16 2018.
+For each parameter, n\_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+    \end{Verbatim}
+
+    \hypertarget{answers-for-i-and-ii}{%
+\subparagraph{Answers for i) and ii)}\label{answers-for-i-and-ii}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{plot\PYZus{}i\PYZus{}ii}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_21_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{answer-for-iii}{%
+\subparagraph{Answer for iii)}\label{answer-for-iii}}
+
+This histogram for the 7th machine should be the same as in i) for the
+6th machine because they have the same distribution for this case
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\textbf{Pool model}
+
+    The answers are after the source code. Pool model stan code is very
+similar to separate model. Sigma is a single value in this case
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{o}{\PYZpc{}\PYZpc{}capture}
+         \PY{n}{model}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{data }\PY{l+s+s2}{\PYZob{}}
+         \PY{l+s+s2}{  int\PYZlt{}lower=0\PYZgt{} N; // number of data points}
+         \PY{l+s+s2}{  int\PYZlt{}lower=0\PYZgt{} K; // number of groups}
+         \PY{l+s+s2}{  int\PYZlt{}lower=1,upper=K\PYZgt{} x[N]; // group indicator}
+         \PY{l+s+s2}{  vector[N] y; //}
+         \PY{l+s+s2}{\PYZcb{}}
+         \PY{l+s+s2}{parameters }\PY{l+s+s2}{\PYZob{}}
+         \PY{l+s+s2}{  vector[K] mu;        // group means}
+         \PY{l+s+s2}{  real\PYZlt{}lower=0\PYZgt{} sigma; // common std}
+         \PY{l+s+s2}{\PYZcb{}}
+         \PY{l+s+s2}{model }\PY{l+s+s2}{\PYZob{}}
+         \PY{l+s+s2}{  y \PYZti{} normal(mu[x], sigma);}
+         \PY{l+s+s2}{\PYZcb{}}
+         \PY{l+s+s2}{generated quantities }\PY{l+s+s2}{\PYZob{}}
+         \PY{l+s+s2}{    real ypred\PYZus{}6; // predictive distribution for the 6th machine}
+         \PY{l+s+s2}{    ypred\PYZus{}6 = normal\PYZus{}rng(mu[6], sigma);}
+         \PY{l+s+s2}{\PYZcb{}}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{n}{data} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{N}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{)}
+         \PY{n}{sm} \PY{o}{=} \PY{n}{pystan}\PY{o}{.}\PY{n}{StanModel}\PY{p}{(}\PY{n}{model\PYZus{}code}\PY{o}{=}\PY{n}{model}\PY{p}{)}
+         \PY{n}{fit} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{sampling}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{,} \PY{n+nb}{iter}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{chains}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{samples} \PY{o}{=} \PY{n}{fit}\PY{o}{.}\PY{n}{extract}\PY{p}{(}\PY{n}{permuted}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{plot\PYZus{}i\PYZus{}ii}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{samples}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Posterior distribution of 6th machine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{samples}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ypred\PYZus{}6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predictive distribution of 6th machine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             
+\end{Verbatim}
+
+
+    \hypertarget{stan-model-inference}{%
+\subparagraph{Stan model inference}\label{stan-model-inference}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{fit}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Inference for Stan model: anon\_model\_28598bc7595af8884de7a43b9ba84b5a.
+4 chains, each with iter=1000; warmup=500; thin=1; 
+post-warmup draws per chain=500, total post-warmup draws=2000.
+
+          mean se\_mean     sd   2.5\%    25\%    50\%    75\%  97.5\%  n\_eff   Rhat
+mu[1]    75.91    0.13   6.97  61.57  71.63  76.02  80.29  90.06   2829    1.0
+mu[2]   106.34    0.15   6.95  92.19  101.7  106.2 110.62 120.59   2273    1.0
+mu[3]     88.0    0.14   6.92  74.84  83.38  87.84   92.6 101.93   2591    1.0
+mu[4]   111.78    0.12   6.71  99.04 107.09  111.8 116.43 124.73   3057    1.0
+mu[5]    90.11    0.12    6.8  77.11  85.69  90.03   94.6 104.14   2997    1.0
+mu[6]    86.16    0.13   6.98  72.08  81.69  86.28  90.71 100.13   2827    1.0
+sigma    15.16    0.05   2.33  11.45  13.51  14.93  16.42  20.55   1926    1.0
+ypred\_6   86.2     0.4  17.24  51.54  75.22  86.21  97.53 120.75   1856    1.0
+lp\_\_    -92.98    0.07   2.13 -97.86  -94.2 -92.55 -91.41 -89.97    846    1.0
+
+Samples were drawn using NUTS at Mon Nov  5 01:29:56 2018.
+For each parameter, n\_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+    \end{Verbatim}
+
+    \hypertarget{answers-for-i-and-ii}{%
+\subparagraph{Answers for i) and ii)}\label{answers-for-i-and-ii}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{plot\PYZus{}i\PYZus{}ii}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{answer-for-iii}{%
+\subparagraph{Answer for iii)}\label{answer-for-iii}}
+
+This histogram for the 7th machine should be the same as in i) for the
+6th machine because they have the same distribution also this case
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+\textbf{Hierarchical model}
+
+    The answers are after the source code.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{o}{\PYZpc{}\PYZpc{}capture}
+         \PY{n}{model}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+s2}{data }\PY{l+s+s2}{\PYZob{}}
+         \PY{l+s+s2}{    int\PYZlt{}lower=0\PYZgt{} N; // number of data points}
+         \PY{l+s+s2}{    int\PYZlt{}lower=0\PYZgt{} K; // number of groups}
+         \PY{l+s+s2}{    int\PYZlt{}lower=1,upper=K\PYZgt{} x[N]; // group indicator}
+         \PY{l+s+s2}{    vector[N] y; //}
+         \PY{l+s+s2}{\PYZcb{}}
+         \PY{l+s+s2}{parameters }\PY{l+s+s2}{\PYZob{}}
+         \PY{l+s+s2}{    real mu0;             // prior mean}
+         \PY{l+s+s2}{    real\PYZlt{}lower=0\PYZgt{} sigma0; // prior std}
+         \PY{l+s+s2}{    vector[K] mu;         // group means}
+         \PY{l+s+s2}{    real\PYZlt{}lower=0\PYZgt{} sigma;  // common std}
+         \PY{l+s+s2}{\PYZcb{}}
+         \PY{l+s+s2}{model }\PY{l+s+s2}{\PYZob{}}
+         \PY{l+s+s2}{  mu0 \PYZti{} normal(10,10);      // weakly informative prior}
+         \PY{l+s+s2}{  sigma0 \PYZti{} cauchy(0,4);     // weakly informative prior}
+         \PY{l+s+s2}{  mu \PYZti{} normal(mu0, sigma0); // population prior with unknown parameters}
+         \PY{l+s+s2}{  sigma \PYZti{} cauchy(0,4);      // weakly informative prior}
+         \PY{l+s+s2}{  y \PYZti{} normal(mu[x], sigma);}
+         \PY{l+s+s2}{\PYZcb{}}
+         \PY{l+s+s2}{generated quantities }\PY{l+s+s2}{\PYZob{}}
+         \PY{l+s+s2}{    real ypred\PYZus{}6; // predictive distribution for the 6th machine}
+         \PY{l+s+s2}{    ypred\PYZus{}6 = normal\PYZus{}rng(mu[6], sigma);}
+         \PY{l+s+s2}{\PYZcb{}}
+         \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         
+         \PY{n}{data} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{N}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,} \PY{n}{K}\PY{o}{=}\PY{l+m+mi}{6}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{y}\PY{p}{)}
+         \PY{n}{sm} \PY{o}{=} \PY{n}{pystan}\PY{o}{.}\PY{n}{StanModel}\PY{p}{(}\PY{n}{model\PYZus{}code}\PY{o}{=}\PY{n}{model}\PY{p}{)}
+         \PY{n}{fit} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{sampling}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{,} \PY{n+nb}{iter}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{,} \PY{n}{chains}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{samples} \PY{o}{=} \PY{n}{fit}\PY{o}{.}\PY{n}{extract}\PY{p}{(}\PY{n}{permuted}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{plot\PYZus{}i\PYZus{}ii}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{samples}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Posterior distribution of 6th machine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{samples}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ypred\PYZus{}6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predictive distribution of 6th machine}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             
+\end{Verbatim}
+
+
+    \hypertarget{stan-model-inference}{%
+\subparagraph{Stan model inference}\label{stan-model-inference}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{fit}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Inference for Stan model: anon\_model\_21c2e5744abac4d4e83d90f1f235092a.
+4 chains, each with iter=1000; warmup=500; thin=1; 
+post-warmup draws per chain=500, total post-warmup draws=2000.
+
+          mean se\_mean     sd   2.5\%    25\%    50\%    75\%  97.5\%  n\_eff   Rhat
+mu0      19.87     0.2  10.12  -0.36  13.16  20.23  26.65  39.86   2679    1.0
+sigma0   76.63     0.6  27.34  40.53  58.57  71.16  88.57 141.83   2098    1.0
+mu[1]    75.15    0.13   7.07  59.86  70.74  75.41  79.61  89.04   3092    1.0
+mu[2]   105.29    0.12   6.57  92.25 101.09 105.41 109.63 118.33   2853    1.0
+mu[3]    87.04    0.12   6.49  73.48  82.78  87.11  91.49  99.85   3048    1.0
+mu[4]   110.87    0.12   6.67  97.42 106.29 110.84 115.39 124.02   3230    1.0
+mu[5]    89.31    0.13   6.43  76.23  85.17  89.33  93.31 102.17   2450    1.0
+mu[6]    85.47    0.12   6.88  71.58  81.03  85.43  89.98  99.28   3157    1.0
+sigma    14.61    0.06   2.24  11.18  12.99  14.29   15.9  20.04   1488    1.0
+ypred\_6  85.32    0.36  16.18  53.59  75.08  84.86  95.75 118.25   2030    1.0
+lp\_\_    -127.2     0.1   2.48 -133.4 -128.5 -126.8 -125.4 -123.5    667    1.0
+
+Samples were drawn using NUTS at Mon Nov  5 01:31:45 2018.
+For each parameter, n\_eff is a crude measure of effective sample size,
+and Rhat is the potential scale reduction factor on split chains (at 
+convergence, Rhat=1).
+
+    \end{Verbatim}
+
+    \hypertarget{answers-for-i-and-ii}{%
+\subparagraph{Answers for i) and ii)}\label{answers-for-i-and-ii}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{plot\PYZus{}i\PYZus{}ii}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
